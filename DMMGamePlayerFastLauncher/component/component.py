@@ -167,36 +167,36 @@ class OptionMenuTupleComponent(CTkFrame):
     variable: StringVar
     shadow_variable: StringVar
     text: str
-    values: list[tuple[Any, str]]
+    values: dict[Any, str]
     command: Optional[Callable[[str], None]]
     tooltip: Optional[str]
 
-    def __init__(
-        self, master: Frame, text: str, variable: StringVar, values: list[tuple[Any, str]], command: Optional[Callable[[str], None]] = None, tooltip: Optional[str] = None
-    ):
+    def __init__(self, master: Frame, text: str, variable: StringVar, values: dict[Any, str], command: Optional[Callable[[str], None]] = None, tooltip: Optional[str] = None):
         super().__init__(master, fg_color="transparent")
         self.pack(fill=ctk.X, expand=True)
         self.text = text
-        self.variable = variable
-        default = [x[1] for x in values if x[0] == variable.get()]
-        self.shadow_variable = StringVar(value=default[0] if len(default) else None)
         self.values = values
+        self.variable = variable
+        # 用于文本显示
+        self.shadow_variable = StringVar(value=self.values.get(variable.get()))
         self.command = command
         self.tooltip = tooltip
 
     def create(self):
         required = self.shadow_variable.get() not in [x[1] for x in self.values]
         LabelComponent(self, text=self.text, tooltip=self.tooltip, required=required).create()
-        values = [x[1] for x in self.values]
+        values = list(self.values.values())
 
         CTkOptionMenu(self, values=values, variable=self.shadow_variable, command=self.callback).pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True)
         return self
 
     def callback(self, text: str):
-        var = [x[0] for x in self.values if x[1] == text][0]
-        self.variable.set(var)
+        # 这里要设置的是key, 容错处理
+        find_keys = [item[0] for item in self.values.items() if item[1] == text]
+        if find_keys is not None:
+            self.variable.set(find_keys[0])
         if self.command is not None:
-            self.command(var)
+            self.command(text)
 
 
 class PaddingComponent(CTkFrame):

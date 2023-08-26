@@ -19,5 +19,9 @@
     // "**/data": true,
     "**/*.spec": true,
     "**/.venv": true
-  }
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "files.autoSave": "onWindowChange"
 }

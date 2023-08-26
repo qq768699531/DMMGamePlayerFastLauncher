@@ -34,23 +34,32 @@ class SettingTab(CTkFrame):
 
 
 class SettingEditTab(CTkScrollableFrame):
+    # 提示弹窗
     toast: ToastController
+    # 设置数据
     data: SettingData
-    lang: list[tuple[str, str]]
+    # 当前可选语言
+    lang: dict[str, str]
     theme: list[str]
 
     def __init__(self, master: CTkBaseClass):
         super().__init__(master, fg_color="transparent")
         self.toast = ToastController(self)
         self.data = AppConfig.DATA
-        self.lang = [(y, i18n.t("app.language", locale=y)) for y in [x.suffixes[0][1:] for x in AssetsPathConfig.I18N.iterdir()]]
-        self.lang_var = StringVar(value=dict(self.lang)[self.data.lang.get()])
+
+        self.lang = {}
+
+        # 初始化, 从语音文件夹中获取所有语言
+        for x in AssetsPathConfig.I18N.iterdir():
+            y = x.suffixes[0].removeprefix(".")
+            self.lang.update({y: i18n.t("app.language." + y)})
 
         self.theme = [x.stem for x in AssetsPathConfig.THEMES.iterdir()]
 
     def create(self):
         DirectoryPathComponent(self, text=i18n.t("app.setting.dmm_game_player_program_folder"), variable=self.data.dmm_game_player_program_folder, required=True).create()
         DirectoryPathComponent(self, text=i18n.t("app.setting.dmm_game_player_data_folder"), variable=self.data.dmm_game_player_data_folder, required=True).create()
+        # 创建语言下拉菜单
         OptionMenuTupleComponent(self, text=i18n.t("app.setting.lang"), values=self.lang, variable=self.data.lang).create()
         OptionMenuComponent(self, text=i18n.t("app.setting.theme"), values=self.theme, variable=self.data.theme).create()
         OptionMenuComponent(self, text=i18n.t("app.setting.appearance"), values=["light", "dark", "system"], variable=self.data.appearance_mode).create()
@@ -75,7 +84,6 @@ class SettingEditTab(CTkScrollableFrame):
 
     @error_toast
     def save_callback(self):
-        self.data.lang.set([x[0] for x in self.lang if x[1] == self.lang_var.get()][0])
         with open(DataPathConfig.APP_CONFIG, "w+", encoding="utf-8") as f:
             json.dump(self.data.to_dict(), f)
         self.reload_callback()

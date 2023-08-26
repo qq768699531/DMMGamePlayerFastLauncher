@@ -1,4 +1,130 @@
 en:
   title: DMMGamePlayer Fast Launcher
   version: v5.0.1
-  language: 英語
+  language:
+    en: English
+    jp: Japenese
+  
+  tab:
+    home: Home
+    shortcut: ShortCut
+    account: Account
+    setting: Setting
+    other: Other
+    help: Help
+    create: Create
+    edit: Edit
+    launch_create: Launch Create
+    import: Import
+
+  shortcut:
+    filename: FileName
+    filename_tooltip: |-
+      Add any name to this shortcut.
+      Only alphanumeric and half square symbols are recommended.
+
+    product_id: Choose an product
+    product_id_tooltip: |-
+      Product ID is the ID used by DMM to identify the game.
+
+    account_create_detail: |-
+      Create a shortcut to start launcher.
+      Select an account created on the account tab.
+
+    account_path: Choose an account
+    account_path_tooltip: |-
+      Select an account created on the account tab.
+
+    game_args: Game arguments
+    game_args_tooltip: |-
+      Argument to pass to the game.
+      If you are a unity game, you can enter screen fullscreen width 0 height 1280
+      Starts with 1280x720 resolution in window mode when the game starts.
+
+    auto_update: Game auto update at startup
+
+    create_bypass_shortcut_and_save: Create and save UAC automatic promotion shortcuts
+    create_shortcut_and_save: Create and save shortcuts
+    save_only: Preservation only
+
+    add_detail: Create a shortcut configuration file.
+    edit_detail: Edit the shortcut configuration file.
+
+    file_select: File selection
+
+    product_id_not_entered: Product ID is not entered.
+    filename_not_entered: File name is not entered.
+    file_not_selected: File is not selected.
+    save_success: Saved.
+    delete: Deleted.
+
+  account:
+    import_detail: Import your DMMGamePlayer account information into fastlauncher.
+    filename_tooltip: |-
+      Add any name to this shortcut.
+      Only alphanumeric and half square symbols are recommended.
+
+    import: Import
+    filename: File name
+    filename_not_entered: File name is not entered.
+    filename_already_exists: The filename already exists.
+    import_error: Import has failed.
+    import_success: Import has succeed.
+
+    file_select: File selection
+
+    edit_detail: |-
+      Edit your account information.
+      This is a very advanced operation.
+    save: save
+    delete: delete
+    save_success: Saved configuration.
+
+  setting:
+    save: save
+    reset_all_settings: Reset all settings
+    confirm_reset: Do you really want to reset all settings?
+    save_success: Saved configuration.
+    dmm_game_player_program_folder: DMMGamePlayer program folder
+    dmm_game_player_data_folder: DMMGamePlayer data folder
+    lang: Language
+    theme: Theme
+    appearance: Appearance
+
+    proxy_http: HTTP Proxy
+    proxy_https: HTTPS Proxy
+
+    window_scaling: Window Scale
+    debug_window: Debug window
+
+    other_detail: Edit this tool's settings in the text editor.
+    open_save_folder: Open configuration file
+
+  help:
+    coop_in_develop: Cooperation in development
+    donations_to_developer: Donate to developers
+    bug_report: Bug reporting
+
+  launch:
+    export_error: Export has failed.
+    import_error: Import has failed.
+
+    admin_error: Administrator privileges are required.
+
+  component:
+    required: Input required item.
+    required_symbol: "*"
+    reference: Reference
+
+    "yes": Yes
+    "no": No
+
+    download: Download
+
+  toast:
+    report: Report
+    copy_to_clipboard: "Copy to clipboard"
+    details: Details
+
+  utils:
+    file_exists: The file already exists.
